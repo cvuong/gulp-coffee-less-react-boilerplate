@@ -1,6 +1,8 @@
 concat    = require 'gulp-concat'
 coffeeify = require 'gulp-coffeeify'
+ecstatic  = require 'ecstatic'
 gulp      = require 'gulp'
+http      = require 'http'
 less      = require 'gulp-less'
 
 gulp.task 'default', [
@@ -47,6 +49,12 @@ gulp.task 'less', ->
 
 # The 'server' task starts a server and serves the static assets in 'dist'
 gulp.task 'server', ->
+  PORT = 8090
+  http.createServer(
+    ecstatic
+      root: "#{__dirname}/dist"
+  ).listen(PORT)
+  console.log "Server started on port :#{PORT}"
   return
 
 # The 'watch' task watches the bower, coffee, html, less files for changes
