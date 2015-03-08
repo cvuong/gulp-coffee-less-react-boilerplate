@@ -1,6 +1,7 @@
 concat    = require 'gulp-concat'
 coffeeify = require 'gulp-coffeeify'
 gulp      = require 'gulp'
+less      = require 'gulp-less'
 
 gulp.task 'default', [
   'bower'
@@ -8,6 +9,7 @@ gulp.task 'default', [
   'html'
   'less'
   'server'
+  'watch'
 ]
 
 # The 'bower' task moves all of the 3rd party components in inside of
@@ -38,8 +40,20 @@ gulp.task 'html', ->
 # The 'less' task watches and compiles the .less files inside of 'src/less'
 # to 'dist/css'
 gulp.task 'less', ->
+  gulp.src('./src/less/**/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('./dist/css'))
   return
 
 # The 'server' task starts a server and serves the static assets in 'dist'
 gulp.task 'server', ->
+  return
+
+# The 'watch' task watches the bower, coffee, html, less files for changes
+# and runs their tasks again.
+gulp.task 'watch', ->
+  gulp.watch('./bower_components', ['bower'])
+  gulp.watch('./src/coffee/**/*.coffee', ['coffee'])
+  gulp.watch('./src/html/**/*.html', ['html'])
+  gulp.watch('./src/less/**/*.less', ['less'])
   return
