@@ -1,4 +1,5 @@
-hello = require './hello'
+CommentBox = require '../cjsx/CommentBox'
+console.log 'testblah'
 
-console.log 'start of app.coffee'
-hello()
+React.renderComponent CommentBox(),
+  document.getElementById('content')

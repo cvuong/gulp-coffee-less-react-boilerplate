@@ -1,3 +1,4 @@
+browserify  = require 'gulp-browserify'
 concat      = require 'gulp-concat'
 coffeeify   = require 'gulp-coffeeify'
 del         = require 'del'
@@ -5,6 +6,7 @@ ecstatic    = require 'ecstatic'
 gulp        = require 'gulp'
 http        = require 'http'
 less        = require 'gulp-less'
+rename      = require 'gulp-rename'
 runSequence = require 'run-sequence'
 
 gulp.task 'default', ->
@@ -27,11 +29,19 @@ gulp.task 'bower', ->
     .pipe(gulp.dest('./dist/js'))
   return
 
-# The 'coffee' task watches and compiles all of the .coffee files inside of
-# 'src/coffee' to 'dist/js'
+# The 'coffee' task compiles the 'src/coffee/app.coffee' to 'dist/js'
+# We pass in `{read: false}` so gulp-browserify does not pipe the contents
+# to node-browserify.
+# More about the importance of using `{read: false}` can be found here:
+# https://www.npmjs.com/package/gulp-browserify
 gulp.task 'coffee', ->
-  gulp.src('./src/coffee/app.coffee')
-    .pipe(coffeeify())
+  gulp.src('./src/coffee/app.coffee', read: false)
+    .pipe(browserify(
+      debug: true
+      transform: ['coffee-reactify']
+      extensions: ['.coffee', '.cjsx']
+    ))
+    .pipe(rename('app.js'))
     .pipe(gulp.dest('./dist/js'))
   return
 
@@ -69,10 +79,11 @@ gulp.task 'server', ->
   console.log "Server started on port :#{PORT}"
   return
 
-# The 'watch' task watches the bower, coffee, html, less files for changes
+# The 'watch' task watches the coffee, cjsx, html, less files for changes
 # and runs their tasks again.
 gulp.task 'watch', ->
   gulp.watch('./src/coffee/**/*.coffee', ['coffee'])
+  gulp.watch('./src/cjsx/**/*.cjsx', ['coffee'])
   gulp.watch('./src/html/**/*.html', ['html'])
   gulp.watch('./src/less/**/*.less', ['less'])
   return
