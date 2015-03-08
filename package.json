@@ -2,6 +2,7 @@
   "devDependencies": {
     "coffee-script": "^1.8.0",
     "gulp": "^3.8.11",
-    "gulp-coffeeify": "^0.1.8"
+    "gulp-coffeeify": "^0.1.8",
+    "gulp-concat": "^2.5.2"
   }
 }
