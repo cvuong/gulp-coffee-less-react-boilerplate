@@ -29,8 +29,10 @@ gulp.task 'coffee', ->
   return
 
 # The 'html' task watches and moves the html files inside of 'src/html'
-# to 'dist/html'
+# to 'dist'
 gulp.task 'html', ->
+  gulp.src('./src/html/**/*.html')
+    .pipe(gulp.dest('./dist'))
   return
 
 # The 'less' task watches and compiles the .less files inside of 'src/less'
