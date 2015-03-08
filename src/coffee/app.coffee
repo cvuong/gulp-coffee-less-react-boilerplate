@@ -1,4 +1,4 @@
 CommentBox = require '../cjsx/CommentBox'
 
-React.renderComponent CommentBox(),
+React.render <CommentBox />,
   document.getElementById('content')

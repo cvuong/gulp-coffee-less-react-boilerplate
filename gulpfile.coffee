@@ -23,7 +23,7 @@ gulp.task 'default', ->
 gulp.task 'bower', ->
   gulp.src([
     './bower_components/jquery/dist/jquery.min.js'
-    './bower_components/react/react.min.js'
+    './bower_components/react/react.js'
   ])
     .pipe(concat('3rd.js'))
     .pipe(gulp.dest('./dist/js'))
