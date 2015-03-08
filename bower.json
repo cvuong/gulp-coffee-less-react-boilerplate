@@ -12,5 +12,8 @@
   ],
   "dependencies": {
     "react": "~0.12.2"
+  },
+  "devDependencies": {
+    "jquery": "~2.1.3"
   }
 }

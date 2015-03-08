@@ -20,6 +20,7 @@ gulp.task 'default', ->
 # 'bower_components' to 'dist/js/3rd.js'
 gulp.task 'bower', ->
   gulp.src([
+    './bower_components/jquery/dist/jquery.min.js'
     './bower_components/react/react.min.js'
   ])
     .pipe(concat('3rd.js'))
