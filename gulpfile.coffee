@@ -1,8 +1,8 @@
 browserify  = require 'gulp-browserify'
 concat      = require 'gulp-concat'
+connect     = require 'gulp-connect'
 coffeeify   = require 'gulp-coffeeify'
 del         = require 'del'
-ecstatic    = require 'ecstatic'
 gulp        = require 'gulp'
 http        = require 'http'
 less        = require 'gulp-less'
@@ -12,7 +12,7 @@ runSequence = require 'run-sequence'
 gulp.task 'default', ->
   runSequence(
     'clean'
-    ['bower', 'coffee', 'html', 'less'],
+    ['bower', 'coffee', 'html', 'less']
     'watch'
     'server'
   )
@@ -72,11 +72,11 @@ gulp.task 'less', ->
 # The 'server' task starts a server and serves the static assets in 'dist'
 gulp.task 'server', ->
   PORT = 8090
-  http.createServer(
-    ecstatic
-      root: "#{__dirname}/dist"
-  ).listen(PORT)
-  console.log "Server started on port :#{PORT}"
+  connect.server(
+    livereload: true
+    port: PORT
+    root: 'dist'
+  )
   return
 
 # The 'watch' task watches the coffee, cjsx, html, less files for changes
