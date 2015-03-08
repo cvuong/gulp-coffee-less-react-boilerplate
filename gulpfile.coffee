@@ -30,7 +30,7 @@ gulp.task 'bower', ->
 # The 'coffee' task watches and compiles all of the .coffee files inside of
 # 'src/coffee' to 'dist/js'
 gulp.task 'coffee', ->
-  gulp.src('./src/coffee/**/*.coffee')
+  gulp.src('./src/coffee/app.coffee')
     .pipe(coffeeify())
     .pipe(gulp.dest('./dist/js'))
   return
