@@ -6,6 +6,7 @@ del         = require 'del'
 gulp        = require 'gulp'
 http        = require 'http'
 less        = require 'gulp-less'
+plumber     = require 'gulp-plumber'
 rename      = require 'gulp-rename'
 runSequence = require 'run-sequence'
 
@@ -36,6 +37,7 @@ gulp.task 'bower', ->
 # https://www.npmjs.com/package/gulp-browserify
 gulp.task 'coffee', ->
   gulp.src('./src/coffee/app.coffee', read: false)
+    .pipe(plumber())
     .pipe(browserify(
       debug: true
       transform: ['coffee-reactify']
@@ -65,6 +67,7 @@ gulp.task 'html', ->
 # to 'dist/css'
 gulp.task 'less', ->
   gulp.src('./src/less/**/*.less')
+    .pipe(plumber())
     .pipe(less())
     .pipe(gulp.dest('./dist/css'))
   return
